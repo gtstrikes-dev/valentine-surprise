@@ -35,7 +35,7 @@
     }
     .romantic-message {
       position: fixed;
-      top: 40%;
+      top: 35%;
       left: 50%;
       transform: translate(-50%, -50%);
       font-size: 1.5em;
@@ -122,19 +122,20 @@
       let screenH = window.innerHeight;
 
       // Define safe zones around edges (not too corner, not center)
-      let positions = [
-        {top: screenH * 0.05, left: screenW * 0.1},
-        {top: screenH * 0.05, left: screenW * 0.8},
-        {top: screenH * 0.2, left: screenW * 0.15},
-        {top: screenH * 0.2, left: screenW * 0.75},
-        {top: screenH * 0.75, left: screenW * 0.1},
-        {top: screenH * 0.75, left: screenW * 0.8},
-        {top: screenH * 0.85, left: screenW * 0.25},
-        {top: screenH * 0.85, left: screenW * 0.65},
-        {top: screenH * 0.4, left: screenW * 0.05},
-        {top: screenH * 0.4, left: screenW * 0.85},
-        {top: screenH * 0.9, left: screenW * 0.45}
-      ];
+let positions = [
+  {top: screenH * 0.05, left: screenW * 0.1},
+  {top: screenH * 0.05, left: screenW * 0.8},
+  {top: screenH * 0.2, left: screenW * 0.15},
+  {top: screenH * 0.2, left: screenW * 0.75},
+  {top: screenH * 0.65, left: screenW * 0.1},   // was 0.75
+  {top: screenH * 0.65, left: screenW * 0.8},   // was 0.75
+  {top: screenH * 0.75, left: screenW * 0.25},  // was 0.85
+  {top: screenH * 0.75, left: screenW * 0.65},  // was 0.85
+  {top: screenH * 0.35, left: screenW * 0.05},
+  {top: screenH * 0.35, left: screenW * 0.85},
+  {top: screenH * 0.82, left: screenW * 0.45}   // was 0.9
+];
+
 
       images.forEach((src, i) => {
         let img = document.createElement("img");
@@ -150,6 +151,7 @@
 </script>
 </body>
 </html>
+
 
 
 
