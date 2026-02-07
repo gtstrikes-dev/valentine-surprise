@@ -20,28 +20,31 @@
     }
 
     .start-message {
-      grid-area: center;
+      position: fixed;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       font-size: 3em;
       color: #e60073;
       font-weight: bold;
+      z-index: 20;
     }
 
-.click-btn {
-  position: fixed;   /* instead of grid-area */
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 15px 30px;
-  font-size: 1.2em;
-  background: #e60073;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
-  z-index: 20;       /* ensures it’s above other elements */
-}
-
+    .click-btn {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 15px 30px;
+      font-size: 1.2em;
+      background: #e60073;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      z-index: 20;
+    }
 
     .romantic-message {
       grid-area: center;
@@ -117,60 +120,24 @@
   <img id="photo-br" class="photo" style="grid-area: br;">
 
   <script>
-    // Group images into slots for slideshow
-    const photoGroups = {
-      "photo-tl": ["Her1.jpg","Her2.jpg"],
-      "photo-top": ["Her3.jpg","Her4.jpg"],
-      "photo-tr": ["Her5.jpg","Her6.jpg"],
-      "photo-left": ["Her7.jpg","Her8.jpg"],
-      "photo-right": ["Her9.jpg","Her10.jpg"],
-      "photo-bl": ["Her11.jpg","Her1.jpg"],
-      "photo-bottom": ["Her2.jpg","Her3.jpg"],
-      "photo-br": ["Her4.jpg","Her5.jpg"]
-    };
-
-function startSurprise() {
-  // Remove intro
-  document.getElementById("intro").remove();
-
-  // Fade in romantic message
-  document.getElementById("romanticMessage").style.opacity = 1;
-
-  // After 3s delay, start hearts + slideshow
-  setTimeout(() => {
-    // Floating hearts
-    setInterval(() => {
-      let heart = document.createElement("div");
-      heart.className = "floating-heart";
-      heart.innerHTML = "❤️";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDuration = (3 + Math.random() * 3) + "s";
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 6000);
-    }, 300);
-
-    // Slideshow groups
+    // Slideshow groups: each slot cycles through its images
     const photoGroups = {
       "photo-tl": ["Her1.jpg","Her2.jpg","Her3.jpg"],
-      "photo-top": ["Her4.jpg","Her5.jpg","Her6.jpg"],
-      "photo-tr": ["Her7.jpg","Her8.jpg"],
-      "photo-left": ["Her9.jpg","Her10.jpg"],
-      "photo-right": ["Her11.jpg","Her1.jpg"],
+      "photo-top": ["Her4.jpg","Her5.jpg"],
+      "photo-tr": ["Her6.jpg","Her7.jpg"],
+      "photo-left": ["Her8.jpg","Her9.jpg"],
+      "photo-right": ["Her10.jpg","Her11.jpg"],
       "photo-bl": ["Her2.jpg","Her3.jpg"],
       "photo-bottom": ["Her4.jpg","Her5.jpg"],
       "photo-br": ["Her6.jpg","Her7.jpg"]
     };
 
-    Object.keys(photoGroups).forEach((id, i) => {
+    function cyclePhotos(id, group) {
       let img = document.getElementById(id);
-      let group = photoGroups[id];
       let index = 0;
-
-      // Show first image
       img.src = group[index];
-      setTimeout(() => { img.style.opacity = 1; }, i * 500);
+      img.style.opacity = 1;
 
-      // Cycle images every 5s
       setInterval(() => {
         index = (index + 1) % group.length;
         img.style.opacity = 0;
@@ -179,11 +146,34 @@ function startSurprise() {
           img.style.opacity = 1;
         }, 1000); // wait for fade-out before swap
       }, 5000);
-    });
-  }, 3000);
-}
+    }
+
+    function startSurprise() {
+      // Remove intro
+      document.getElementById("intro").remove();
+
+      // Fade in romantic message
+      document.getElementById("romanticMessage").style.opacity = 1;
+
+      // After 3s delay, start hearts + slideshow
+      setTimeout(() => {
+        // Floating hearts
+        setInterval(() => {
+          let heart = document.createElement("div");
+          heart.className = "floating-heart";
+          heart.innerHTML = "❤️";
+          heart.style.left = Math.random() * 100 + "vw";
+          heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+          document.body.appendChild(heart);
+          setTimeout(() => heart.remove(), 6000);
+        }, 300);
+
+        // Start slideshow for each slot
+        Object.keys(photoGroups).forEach((id, i) => {
+          setTimeout(() => cyclePhotos(id, photoGroups[id]), i * 500);
+        });
+      }, 3000);
+    }
   </script>
 </body>
 </html>
-
-
