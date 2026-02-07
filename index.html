@@ -26,17 +26,22 @@
       font-weight: bold;
     }
 
-    .click-btn {
-      grid-area: bottom;
-      padding: 15px 30px;
-      font-size: 1.2em;
-      background: #e60073;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
-    }
+.click-btn {
+  position: fixed;   /* instead of grid-area */
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 15px 30px;
+  font-size: 1.2em;
+  background: #e60073;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  z-index: 20;       /* ensures it’s above other elements */
+}
+
 
     .romantic-message {
       grid-area: center;
@@ -169,3 +174,4 @@
   </script>
 </body>
 </html>
+
