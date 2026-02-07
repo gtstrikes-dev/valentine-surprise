@@ -8,6 +8,41 @@
       background: #ffe6e6;
       font-family: 'Arial', sans-serif;
       overflow: hidden;
+      text-align: center;
+    }
+    .start-message {
+      position: fixed;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 3em;
+      color: #e60073;
+      font-weight: bold;
+    }
+    .click-btn {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 15px 30px;
+      font-size: 1.2em;
+      background: #e60073;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+    .romantic-message {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2em;
+      color: #e60073;
+      font-weight: bold;
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
     }
     .floating-heart {
       position: fixed;
@@ -20,66 +55,68 @@
       to { transform: translateY(-10vh) scale(1.5); opacity: 0; }
     }
     .photo {
-      position: absolute;
-      width: 120px;
+      position: fixed;
+      width: 200px;
       height: auto;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.3);
-      animation: fadeInOut 12s ease-in-out infinite;
-    }
-    @keyframes fadeInOut {
-      0% { opacity: 0; transform: scale(0.8); }
-      20% { opacity: 1; transform: scale(1); }
-      80% { opacity: 1; transform: scale(1); }
-      100% { opacity: 0; transform: scale(0.8); }
-    }
-    .message {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-      color: #e60073;
-      font-size: 2em;
-      font-weight: bold;
-      background: rgba(255,255,255,0.7);
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
     }
   </style>
 </head>
 <body>
-  <div class="message">💖 You are my forever Valentine 💖</div>
+  <div class="start-message">Bubutty 😘😘</div>
+  <button class="click-btn" onclick="startSurprise()">Click Me</button>
+  <div class="romantic-message" id="romanticMessage">💖 You are my forever Valentine 💖</div>
 
   <script>
-    // Floating hearts
-    setInterval(() => {
-      let heart = document.createElement("div");
-      heart.className = "floating-heart";
-      heart.innerHTML = "❤️";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDuration = (3 + Math.random() * 3) + "s";
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 6000);
-    }, 300);
-
-    // List of your uploaded photos
     let images = [
       "Her1.jpg","Her2.jpg","Her3.jpg","Her4.jpg","Her5.jpg",
-      "Her6.jpg","Her7.jpg","Her8.jpg","Her9.jpg","Her10.jpg","Her11.jpg"
+      "Her6.jpg","Her7.jpg","Her8.jpg","Her10.jpg","Her11.jpg"
     ];
+    let currentIndex = 0;
+    let photoElement;
 
-    // Show photos randomly around the page
-    images.forEach((src, i) => {
-      let img = document.createElement("img");
-      img.src = src; // relative path to your repo files
-      img.className = "photo";
-      img.style.left = Math.random() * 80 + "vw";
-      img.style.top = Math.random() * 80 + "vh";
-      img.style.animationDelay = (i * 2) + "s";
-      document.body.appendChild(img);
-    });
+    function startSurprise() {
+      // Fade in romantic message
+      document.getElementById("romanticMessage").style.opacity = 1;
+
+      // After 3s delay, start hearts + carousel
+      setTimeout(() => {
+        // Floating hearts
+        setInterval(() => {
+          let heart = document.createElement("div");
+          heart.className = "floating-heart";
+          heart.innerHTML = "❤️";
+          heart.style.left = Math.random() * 100 + "vw";
+          heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+          document.body.appendChild(heart);
+          setTimeout(() => heart.remove(), 6000);
+        }, 300);
+
+        // Carousel setup
+        photoElement = document.createElement("img");
+        photoElement.className = "photo";
+        photoElement.style.top = "70%";
+        photoElement.style.left = "50%";
+        photoElement.style.transform = "translateX(-50%)";
+        document.body.appendChild(photoElement);
+
+        showNextPhoto();
+        setInterval(showNextPhoto, 3000); // change photo every 3s
+      }, 3000);
+    }
+
+    function showNextPhoto() {
+      photoElement.style.opacity = 0;
+      setTimeout(() => {
+        photoElement.src = images[currentIndex];
+        photoElement.style.opacity = 1;
+        currentIndex = (currentIndex + 1) % images.length;
+      }, 1000);
+    }
   </script>
 </body>
 </html>
+
