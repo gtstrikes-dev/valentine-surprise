@@ -132,21 +132,25 @@
       "photo-br": ["Her6.jpg","Her7.jpg"]
     };
 
-    function cyclePhotos(id, group) {
-      let img = document.getElementById(id);
-      let index = 0;
-      img.src = group[index];
-      img.style.opacity = 1;
+function cyclePhotos(id, group) {
+  let img = document.getElementById(id);
+  let index = 0;
+  img.src = group[index];
+  img.style.opacity = 1;
 
-      setInterval(() => {
-        index = (index + 1) % group.length;
-        img.style.opacity = 0;
-        setTimeout(() => {
-          img.src = group[index];
-          img.style.opacity = 1;
-        }, 1000); // wait for fade-out before swap
-      }, 5000);
-    }
+  setInterval(() => {
+    index = (index + 1) % group.length;
+    // fade out smoothly
+    img.style.transition = "opacity 2s ease-in-out"; 
+    img.style.opacity = 0;
+
+    setTimeout(() => {
+      img.src = group[index];
+      img.style.opacity = 1; // fade back in
+    }, 2000); // wait for fade-out before swap
+  }, 10000);   // <-- now 10 seconds between changes
+}
+
 
     function startSurprise() {
       // Remove intro
@@ -177,3 +181,4 @@
   </script>
 </body>
 </html>
+
