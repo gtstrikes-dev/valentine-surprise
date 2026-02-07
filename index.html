@@ -43,7 +43,7 @@
       font-weight: bold;
       opacity: 0;
       transition: opacity 2s ease-in-out;
-      z-index: 2;
+      z-index: 10; /* ensures message stays on top */
       max-width: 600px;
       line-height: 1.5em;
       background: rgba(255,255,255,0.8);
@@ -71,13 +71,13 @@
       position: fixed;
       top: 50%;
       left: 50%;
-      width: 400px;
-      height: 400px;
-      margin-left: -200px;
-      margin-top: -200px;
+      width: 500px;
+      height: 500px;
+      margin-left: -250px;
+      margin-top: -250px;
       border-radius: 50%;
-      animation: rotateCircle 30s linear infinite;
-      z-index: 1;
+      animation: rotateCircle 40s linear infinite;
+      z-index: 5; /* below message but above background */
     }
     @keyframes rotateCircle {
       from { transform: rotate(0deg); }
@@ -132,13 +132,13 @@
         document.body.appendChild(circle);
 
         let angleStep = (2 * Math.PI) / images.length;
+        let radius = 220; // distance from center
         images.forEach((src, i) => {
           let img = document.createElement("img");
           img.src = src;
           let angle = i * angleStep;
-          let radius = 180;
-          img.style.left = (200 + radius * Math.cos(angle) - 50) + "px";
-          img.style.top = (200 + radius * Math.sin(angle) - 50) + "px";
+          img.style.left = (250 + radius * Math.cos(angle) - 50) + "px";
+          img.style.top = (250 + radius * Math.sin(angle) - 50) + "px";
           circle.appendChild(img);
         });
       }, 3000);
