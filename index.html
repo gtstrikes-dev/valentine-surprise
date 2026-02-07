@@ -129,49 +129,61 @@
       "photo-br": ["Her4.jpg","Her5.jpg"]
     };
 
-    function startSurprise() {
-      // Remove intro
-      document.getElementById("intro").remove();
+function startSurprise() {
+  // Remove intro
+  document.getElementById("intro").remove();
 
-      // Fade in romantic message
-      document.getElementById("romanticMessage").style.opacity = 1;
+  // Fade in romantic message
+  document.getElementById("romanticMessage").style.opacity = 1;
 
-      // After 3s delay, start hearts + slideshow
-      setTimeout(() => {
-        // Floating hearts
-        setInterval(() => {
-          let heart = document.createElement("div");
-          heart.className = "floating-heart";
-          heart.innerHTML = "❤️";
-          heart.style.left = Math.random() * 100 + "vw";
-          heart.style.animationDuration = (3 + Math.random() * 3) + "s";
-          document.body.appendChild(heart);
-          setTimeout(() => heart.remove(), 6000);
-        }, 300);
+  // After 3s delay, start hearts + slideshow
+  setTimeout(() => {
+    // Floating hearts
+    setInterval(() => {
+      let heart = document.createElement("div");
+      heart.className = "floating-heart";
+      heart.innerHTML = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }, 300);
 
-        // Initialize slideshow
-        Object.keys(photoGroups).forEach((id, i) => {
-          let img = document.getElementById(id);
-          let group = photoGroups[id];
-          let index = 0;
+    // Slideshow groups
+    const photoGroups = {
+      "photo-tl": ["Her1.jpg","Her2.jpg","Her3.jpg"],
+      "photo-top": ["Her4.jpg","Her5.jpg","Her6.jpg"],
+      "photo-tr": ["Her7.jpg","Her8.jpg"],
+      "photo-left": ["Her9.jpg","Her10.jpg"],
+      "photo-right": ["Her11.jpg","Her1.jpg"],
+      "photo-bl": ["Her2.jpg","Her3.jpg"],
+      "photo-bottom": ["Her4.jpg","Her5.jpg"],
+      "photo-br": ["Her6.jpg","Her7.jpg"]
+    };
 
-          // Show first image
+    Object.keys(photoGroups).forEach((id, i) => {
+      let img = document.getElementById(id);
+      let group = photoGroups[id];
+      let index = 0;
+
+      // Show first image
+      img.src = group[index];
+      setTimeout(() => { img.style.opacity = 1; }, i * 500);
+
+      // Cycle images every 5s
+      setInterval(() => {
+        index = (index + 1) % group.length;
+        img.style.opacity = 0;
+        setTimeout(() => {
           img.src = group[index];
-          setTimeout(() => { img.style.opacity = 1; }, i * 500);
-
-          // Cycle images every 5s
-          setInterval(() => {
-            index = (index + 1) % group.length;
-            img.style.opacity = 0;
-            setTimeout(() => {
-              img.src = group[index];
-              img.style.opacity = 1;
-            }, 1000);
-          }, 5000);
-        });
-      }, 3000);
-    }
+          img.style.opacity = 1;
+        }, 1000); // wait for fade-out before swap
+      }, 5000);
+    });
+  }, 3000);
+}
   </script>
 </body>
 </html>
+
 
