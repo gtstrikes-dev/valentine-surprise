@@ -52,9 +52,6 @@
 <body>
   <div class="message">💖 You are my forever Valentine 💖</div>
 
-  <!-- Static test image -->
-<img src="https://picsum.photos/200" class="photo">
-
   <script>
     // Floating hearts
     setInterval(() => {
@@ -67,14 +64,16 @@
       setTimeout(() => heart.remove(), 6000);
     }, 300);
 
-    // Dynamic photos
+    // List of your uploaded photos
     let images = [
-      "https://drive.google.com/uc?export=view&id=17nVe1MTum-j--hIU0sw3yElGDATffFVq"
+      "Her1.jpg","Her2.jpg","Her3.jpg","Her4.jpg","Her5.jpg",
+      "Her6.jpg","Her7.jpg","Her8.jpg","Her9.jpg","Her10.jpg","Her11.jpg"
     ];
 
+    // Show photos randomly around the page
     images.forEach((src, i) => {
       let img = document.createElement("img");
-      img.src = src;
+      img.src = src; // relative path to your repo files
       img.className = "photo";
       img.style.left = Math.random() * 80 + "vw";
       img.style.top = Math.random() * 80 + "vh";
