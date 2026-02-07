@@ -93,15 +93,15 @@
   <script>
     let images = [
       "Her1.jpg","Her2.jpg","Her3.jpg","Her4.jpg","Her5.jpg",
-      "Her6.jpg","Her7.jpg","Her8.jpg","Her9.jpg","Her10.jpg","Her11.jpg"
+      "Her6.jpg","Her7.jpg","Her8.jpg","Her10.jpg","Her11.jpg"
     ];
 
     // Predefined positions around the page (corners/edges but not too close)
     let positions = [
       {top:"10%", left:"10%"},
-      {top:"10%", left:"80%"},
+      {top:"10%", left:"75%"},
       {top:"20%", left:"30%"},
-      {top:"20%", left:"70%"},
+      {top:"20%", left:"65%"},
       {top:"70%", left:"15%"},
       {top:"70%", left:"75%"},
       {top:"80%", left:"30%"},
@@ -113,8 +113,8 @@
 
     function startSurprise() {
       // Remove Bubutty message and button
-      document.getElementById("startMessage").style.display = "none";
-      document.getElementById("clickBtn").style.display = "none";
+      document.getElementById("startMessage").remove();
+      document.getElementById("clickBtn").remove();
 
       // Fade in romantic message
       document.getElementById("romanticMessage").style.opacity = 1;
