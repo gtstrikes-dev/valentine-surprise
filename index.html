@@ -91,62 +91,65 @@
   </div>
 
   <script>
-    let images = [
-      "Her1.jpg","Her2.jpg","Her3.jpg","Her4.jpg","Her5.jpg",
-      "Her6.jpg","Her7.jpg","Her8.jpg","Her10.jpg","Her11.jpg"
-    ];
+  let images = [
+    "Her1.jpg","Her2.jpg","Her3.jpg","Her4.jpg","Her5.jpg",
+    "Her6.jpg","Her7.jpg","Her8.jpg","Her9.jpg","Her10.jpg","Her11.jpg"
+  ];
 
-    // Predefined positions around the page (corners/edges but not too close)
-let positions = [
-  {top:"5%", left:"10%"},
-  {top:"5%", left:"75%"},
-  {top:"20%", left:"5%"},
-  {top:"20%", left:"80%"},
-  {top:"75%", left:"10%"},
-  {top:"75%", left:"75%"},
-  {top:"85%", left:"25%"},
-  {top:"85%", left:"60%"},
-  {top:"40%", left:"5%"},
-  {top:"40%", left:"85%"},
-  {top:"90%", left:"45%"}
-];
+  function startSurprise() {
+    // Remove Bubutty message and button
+    document.getElementById("startMessage").remove();
+    document.getElementById("clickBtn").remove();
 
+    // Fade in romantic message
+    document.getElementById("romanticMessage").style.opacity = 1;
 
-    function startSurprise() {
-      // Remove Bubutty message and button
-      document.getElementById("startMessage").remove();
-      document.getElementById("clickBtn").remove();
+    // After 3s delay, start hearts + show photos
+    setTimeout(() => {
+      // Floating hearts
+      setInterval(() => {
+        let heart = document.createElement("div");
+        heart.className = "floating-heart";
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 6000);
+      }, 300);
 
-      // Fade in romantic message
-      document.getElementById("romanticMessage").style.opacity = 1;
+      // Place photos responsively around the viewport
+      let screenW = window.innerWidth;
+      let screenH = window.innerHeight;
 
-      // After 3s delay, start hearts + show photos
-      setTimeout(() => {
-        // Floating hearts
-        setInterval(() => {
-          let heart = document.createElement("div");
-          heart.className = "floating-heart";
-          heart.innerHTML = "❤️";
-          heart.style.left = Math.random() * 100 + "vw";
-          heart.style.animationDuration = (3 + Math.random() * 3) + "s";
-          document.body.appendChild(heart);
-          setTimeout(() => heart.remove(), 6000);
-        }, 300);
+      // Define safe zones around edges (not too corner, not center)
+      let positions = [
+        {top: screenH * 0.05, left: screenW * 0.1},
+        {top: screenH * 0.05, left: screenW * 0.8},
+        {top: screenH * 0.2, left: screenW * 0.15},
+        {top: screenH * 0.2, left: screenW * 0.75},
+        {top: screenH * 0.75, left: screenW * 0.1},
+        {top: screenH * 0.75, left: screenW * 0.8},
+        {top: screenH * 0.85, left: screenW * 0.25},
+        {top: screenH * 0.85, left: screenW * 0.65},
+        {top: screenH * 0.4, left: screenW * 0.05},
+        {top: screenH * 0.4, left: screenW * 0.85},
+        {top: screenH * 0.9, left: screenW * 0.45}
+      ];
 
-        // Place photos around the page
-        images.forEach((src, i) => {
-          let img = document.createElement("img");
-          img.src = src;
-          img.className = "photo";
-          img.style.top = positions[i].top;
-          img.style.left = positions[i].left;
-          document.body.appendChild(img);
-          setTimeout(() => { img.style.opacity = 1; }, i * 500); // staggered fade-in
-        });
-      }, 3000);
-    }
-  </script>
+      images.forEach((src, i) => {
+        let img = document.createElement("img");
+        img.src = src;
+        img.className = "photo";
+        img.style.top = positions[i].top + "px";
+        img.style.left = positions[i].left + "px";
+        document.body.appendChild(img);
+        setTimeout(() => { img.style.opacity = 1; }, i * 500); // staggered fade-in
+      });
+    }, 3000);
+  }
+</script>
 </body>
 </html>
+
 
 
