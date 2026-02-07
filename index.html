@@ -88,8 +88,10 @@
   </style>
 </head>
 <body>
-  <div class="start-message" id="startMessage">Bubutty 😘😘</div>
-  <button class="click-btn" id="clickBtn" onclick="startSurprise()">Click Me</button>
+  <div id="intro">
+    <div class="start-message" id="startMessage">Bubutty 😘😘</div>
+    <button class="click-btn" id="clickBtn" onclick="startSurprise()">Click Me</button>
+  </div>
 
   <div class="romantic-message" id="romanticMessage">
     💖 My Thakkudu kutty 💖 <br><br>
@@ -99,29 +101,37 @@
     You are my heart, my joy, my safe place… and you will always be my forever Valentine. 💖
   </div>
 
-  <!-- Photos placed in grid areas -->
-  <img src="Her1.jpg" class="photo" style="grid-area: tl;">
-  <img src="Her2.jpg" class="photo" style="grid-area: top;">
-  <img src="Her3.jpg" class="photo" style="grid-area: tr;">
-  <img src="Her4.jpg" class="photo" style="grid-area: left;">
-  <img src="Her5.jpg" class="photo" style="grid-area: right;">
-  <img src="Her6.jpg" class="photo" style="grid-area: bl;">
-  <img src="Her7.jpg" class="photo" style="grid-area: bottom;">
-  <img src="Her8.jpg" class="photo" style="grid-area: br;">
-  <img src="Her9.jpg" class="photo" style="grid-area: top;">
-  <img src="Her10.jpg" class="photo" style="grid-area: left;">
-  <img src="Her11.jpg" class="photo" style="grid-area: right;">
+  <!-- One photo per grid cell -->
+  <img id="photo-tl" class="photo" style="grid-area: tl;">
+  <img id="photo-top" class="photo" style="grid-area: top;">
+  <img id="photo-tr" class="photo" style="grid-area: tr;">
+  <img id="photo-left" class="photo" style="grid-area: left;">
+  <img id="photo-right" class="photo" style="grid-area: right;">
+  <img id="photo-bl" class="photo" style="grid-area: bl;">
+  <img id="photo-bottom" class="photo" style="grid-area: bottom;">
+  <img id="photo-br" class="photo" style="grid-area: br;">
 
   <script>
+    // Group images into slots for slideshow
+    const photoGroups = {
+      "photo-tl": ["Her1.jpg","Her2.jpg"],
+      "photo-top": ["Her3.jpg","Her4.jpg"],
+      "photo-tr": ["Her5.jpg","Her6.jpg"],
+      "photo-left": ["Her7.jpg","Her8.jpg"],
+      "photo-right": ["Her9.jpg","Her10.jpg"],
+      "photo-bl": ["Her11.jpg","Her1.jpg"],
+      "photo-bottom": ["Her2.jpg","Her3.jpg"],
+      "photo-br": ["Her4.jpg","Her5.jpg"]
+    };
+
     function startSurprise() {
-      // Remove Bubutty message and button
-      document.getElementById("startMessage").remove();
-      document.getElementById("clickBtn").remove();
+      // Remove intro
+      document.getElementById("intro").remove();
 
       // Fade in romantic message
       document.getElementById("romanticMessage").style.opacity = 1;
 
-      // After 3s delay, start hearts + show photos
+      // After 3s delay, start hearts + slideshow
       setTimeout(() => {
         // Floating hearts
         setInterval(() => {
@@ -134,9 +144,25 @@
           setTimeout(() => heart.remove(), 6000);
         }, 300);
 
-        // Fade in photos one by one
-        document.querySelectorAll(".photo").forEach((img, i) => {
+        // Initialize slideshow
+        Object.keys(photoGroups).forEach((id, i) => {
+          let img = document.getElementById(id);
+          let group = photoGroups[id];
+          let index = 0;
+
+          // Show first image
+          img.src = group[index];
           setTimeout(() => { img.style.opacity = 1; }, i * 500);
+
+          // Cycle images every 5s
+          setInterval(() => {
+            index = (index + 1) % group.length;
+            img.style.opacity = 0;
+            setTimeout(() => {
+              img.src = group[index];
+              img.style.opacity = 1;
+            }, 1000);
+          }, 5000);
         });
       }, 3000);
     }
