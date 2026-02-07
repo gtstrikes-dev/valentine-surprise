@@ -52,9 +52,6 @@
 <body>
   <div class="message">💖 You are my forever Valentine 💖</div>
 
-  <!-- Static test image -->
-<img src="https://picsum.photos/200" class="photo">
-
   <script>
     // Floating hearts
     setInterval(() => {
@@ -67,45 +64,22 @@
       setTimeout(() => heart.remove(), 6000);
     }, 300);
 
-   <script>
-  // List of your uploaded photos
-  let images = [
-    "Her1.jpg",
-    "Her2.jpg",
-    "Her3.jpg",
-    "Her4.jpg",
-    "Her5.jpg",
-    "Her6.jpg",
-    "Her7.jpg",
-    "Her8.jpg",
-    "Her9.jpg",
-    "Her10.jpg",
-    "Her11.jpg"
-  ];
+    // List of your uploaded photos
+    let images = [
+      "Her1.jpg","Her2.jpg","Her3.jpg","Her4.jpg","Her5.jpg",
+      "Her6.jpg","Her7.jpg","Her8.jpg","Her9.jpg","Her10.jpg","Her11.jpg"
+    ];
 
-  // Floating hearts
-  setInterval(() => {
-    let heart = document.createElement("div");
-    heart.className = "floating-heart";
-    heart.innerHTML = "❤️";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = (3 + Math.random() * 3) + "s";
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 6000);
-  }, 300);
-
-  // Show photos randomly around the page
-  images.forEach((src, i) => {
-    let img = document.createElement("img");
-    img.src = src; // relative path to your repo files
-    img.className = "photo";
-    img.style.left = Math.random() * 80 + "vw";
-    img.style.top = Math.random() * 80 + "vh";
-    img.style.animationDelay = (i * 2) + "s";
-    document.body.appendChild(img);
-  });
-</script>
-
+    // Show photos randomly around the page
+    images.forEach((src, i) => {
+      let img = document.createElement("img");
+      img.src = src; // relative path to your repo files
+      img.className = "photo";
+      img.style.left = Math.random() * 80 + "vw";
+      img.style.top = Math.random() * 80 + "vh";
+      img.style.animationDelay = (i * 2) + "s";
+      document.body.appendChild(img);
+    });
+  </script>
 </body>
 </html>
-
