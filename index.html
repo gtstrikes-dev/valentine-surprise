@@ -3,7 +3,7 @@
 <head>
   <title>Valentine's Surprise</title>
   <style>
-    /* your CSS stays the same */
+    /* keep all your CSS here (same as before) */
   </style>
 </head>
 <body>
@@ -16,11 +16,13 @@
 
   <!-- Main Valentine’s Content (hidden until password is correct) -->
   <div id="mainContent" style="display:none;">
+    <!-- Bubutty intro + button -->
     <div id="intro">
       <div class="start-message" id="startMessage">Bubutty 😘😘</div>
       <button class="click-btn" id="clickBtn" onclick="startSurprise()">Click Me</button>
     </div>
 
+    <!-- Romantic message -->
     <div class="romantic-message" id="romanticMessage">
       💖 My Thakkudu kutty 💖 <br><br>
       I never imagined I could fall so deeply in love, yet it happened without me even realizing.<br>
@@ -29,7 +31,7 @@
       You are my heart, my joy, my safe place… and you will always be my forever Valentine. 💖
     </div>
 
-    <!-- One photo per grid cell -->
+    <!-- Photos around the grid -->
     <img id="photo-tl" class="photo" style="grid-area: tl;">
     <img id="photo-top" class="photo" style="grid-area: top;">
     <img id="photo-tr" class="photo" style="grid-area: tr;">
@@ -41,17 +43,8 @@
   </div>
 
   <script>
-    // Slideshow groups
-    const photoGroups = {
-      "photo-tl": ["Her1.jpg","Her2.jpg","Her3.jpg"],
-      "photo-top": ["Her4.jpg","Her5.jpg"],
-      "photo-tr": ["Her6.jpg","Her7.jpg"],
-      "photo-left": ["Her8.jpg","Her9.jpg"],
-      "photo-right": ["Her10.jpg","Her11.jpg"],
-      "photo-bl": ["Her2.jpg","Her3.jpg"],
-      "photo-bottom": ["Her4.jpg","Her5.jpg"],
-      "photo-br": ["Her6.jpg","Her7.jpg"]
-    };
+    // slideshow + hearts + password logic (same as before)
+    const photoGroups = { /* your image groups */ };
 
     function cyclePhotos(id, group) {
       let img = document.getElementById(id);
@@ -67,7 +60,7 @@
           img.src = group[index];
           img.style.opacity = 1;
         }, 2000);
-      }, 10000); // 10 seconds between changes
+      }, 10000); // 10 seconds
     }
 
     function startSurprise() {
@@ -75,7 +68,6 @@
       document.getElementById("romanticMessage").style.opacity = 1;
 
       setTimeout(() => {
-        // Floating hearts
         setInterval(() => {
           let heart = document.createElement("div");
           heart.className = "floating-heart";
@@ -86,7 +78,6 @@
           setTimeout(() => heart.remove(), 6000);
         }, 300);
 
-        // Start slideshow
         Object.keys(photoGroups).forEach((id, i) => {
           setTimeout(() => cyclePhotos(id, photoGroups[id]), i * 500);
         });
@@ -95,7 +86,7 @@
 
     function checkPwd() {
       const pwd = document.getElementById("pwdInput").value;
-      if (pwd === "pranayini") {   // change "mysecret" to your chosen password
+      if (pwd === "mysecret") {   // set your password here
         document.getElementById("lockScreen").style.display = "none";
         document.getElementById("mainContent").style.display = "block";
       } else {
