@@ -122,6 +122,8 @@
       font-size: 30px;
       color: red;
       animation: floatUp 6s linear infinite;
+      z-index: 9999;   /* ensures hears appear above the grid*/
+      pointer-events: none;  /* prevents blocking clicks */
     }
 
     @keyframes floatUp {
@@ -229,3 +231,4 @@
   </script>
 </body>
 </html
+
